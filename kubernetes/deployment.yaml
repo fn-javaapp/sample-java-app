@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: sample-java-app
-        image: ${IMAGE_URL}:${IMAGE_VERSION}
+        image: "replace"
         ports:
         - containerPort: 9080
         imagePullPolicy: Always
