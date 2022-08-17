@@ -17,6 +17,8 @@ RUN mvn package
 
 FROM tomcat:9.0-jre8-alpine
 COPY --from=maven_builder /tmp/target/GetStartedJava.war /usr/local/tomcat/webapps
+ENV LICENSE accept
+EXPOSE 8080
 
 #ENV MAVEN_HOME="apache-maven-3.6.3"    
 
