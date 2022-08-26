@@ -4,7 +4,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: sample-java-app
-  namespace: ci
+  namespace: dev
   labels:
     app.kubernetes.io/name: sample-java-app
     helm.sh/chart: sample-java-app-1.0.0-rc0.0.10
