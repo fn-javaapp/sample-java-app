@@ -14,7 +14,7 @@ spec:
   type: ClusterIP #clusterip
   ports:
     - port: 9080
-      targetPort: 9080
+      targetPort: 8080
       protocol: TCP
       name: http
   selector:
