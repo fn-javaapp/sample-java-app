@@ -9,29 +9,17 @@
 #RUN apt-get update && apt-get install maven -y
 # FROM maven:3.5.2-jdk-8-alpine as maven_builder
 
-# COPY pom.xml /tmp/
-# COPY src /tmp/src/
-# WORKDIR /tmp/
-# RUN mvn clean install 
-# RUN mvn package
-
-# FROM tomcat:9.0-jre8-alpine
-# COPY --from=maven_builder /tmp/target/GetStartedJava.war /usr/local/tomcat/webapps
-# ENV LICENSE accept
-# EXPOSE 9080
-FROM maven:3.5.2-jdk-8-alpine as maven_builder
-
 COPY pom.xml /tmp/
 COPY src /tmp/src/
 WORKDIR /tmp/
 RUN mvn clean install 
 RUN mvn package
 
-FROM websphere-liberty:microProfile
-COPY server.xml /config/
-COPY --from=maven_builder /tmp/target/GetStartedJava.war /opt/ibm/wlp/usr/servers/defaultServer/dropins/
+FROM tomcat:9.0-jre8-alpine
+COPY --from=maven_builder /tmp/target/GetStartedJava.war /usr/local/tomcat/webapps
 ENV LICENSE accept
 EXPOSE 9080
+
 
 ## Running the container locally
 # mvn clean install
