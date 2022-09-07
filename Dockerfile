@@ -7,7 +7,7 @@
 #FROM tomcat:jre8-temurin-jammy 
 
 #RUN apt-get update && apt-get install maven -y
-# FROM maven:3.5.2-jdk-8-alpine as maven_builder
+FROM maven:3.5.2-jdk-8-alpine as maven_builder
 
 COPY pom.xml /tmp/
 COPY src /tmp/src/
