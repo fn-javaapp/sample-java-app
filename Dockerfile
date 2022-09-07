@@ -19,15 +19,17 @@
 # COPY --from=maven_builder /tmp/target/GetStartedJava.war /usr/local/tomcat/webapps
 # ENV LICENSE accept
 # EXPOSE 9080
+FROM maven:3.5.2-jdk-8-alpine as maven_builder
 
-FROM websphere-liberty:microProfile
 COPY pom.xml /tmp/
 COPY src /tmp/src/
 WORKDIR /tmp/
 RUN mvn clean install 
 RUN mvn package
+
+FROM websphere-liberty:microProfile
 COPY server.xml /config/
-ADD /tmp/target/GetStartedJava.war /opt/ibm/wlp/usr/servers/defaultServer/dropins/
+COPY --from=maven_builder /tmp/target/GetStartedJava.war /opt/ibm/wlp/usr/servers/defaultServer/dropins/
 ENV LICENSE accept
 EXPOSE 9080
 
