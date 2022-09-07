@@ -21,8 +21,11 @@
 # EXPOSE 9080
 
 FROM websphere-liberty:microProfile
+COPY pom.xml /tmp/
+COPY src /tmp/src/
+WORKDIR /tmp/
 COPY server.xml /config/
-ADD target/GetStartedJava.war /opt/ibm/wlp/usr/servers/defaultServer/dropins/
+ADD /tmp/target/GetStartedJava.war /opt/ibm/wlp/usr/servers/defaultServer/dropins/
 ENV LICENSE accept
 EXPOSE 9080
 
