@@ -19,7 +19,7 @@ spec:
       - name: sample-java-app
         image: "replace"
         ports:
-        - containerPort: 9080
+        - containerPort: 8080
         imagePullPolicy: Always
         env:
         - name: CLOUDANT_URL
