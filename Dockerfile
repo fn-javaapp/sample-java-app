@@ -24,6 +24,8 @@ FROM websphere-liberty:microProfile
 COPY pom.xml /tmp/
 COPY src /tmp/src/
 WORKDIR /tmp/
+RUN mvn clean install 
+RUN mvn package
 COPY server.xml /config/
 ADD /tmp/target/GetStartedJava.war /opt/ibm/wlp/usr/servers/defaultServer/dropins/
 ENV LICENSE accept
