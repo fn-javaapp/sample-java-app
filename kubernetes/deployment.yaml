@@ -12,22 +12,52 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sample-java-app
+      app.kubernetes.io/name: sample-java-app
+      app.kubernetes.io/instance: sample-java-app
   template:
     metadata:
       labels:
-        app: sample-java-app
+        app.kubernetes.io/name: sample-java-app
+        app.kubernetes.io/instance: sample-java-app
     spec:
+      serviceAccountName: sample-java-app
+      volumes:
       containers:
-      - name: sample-java-app
-        image: "image-registry.openshift-image-registry.svc:5000/ci/sample-java-app:0.0.16"
-        ports:
-        - containerPort: 9080
-        imagePullPolicy: Always
-        env:
-        - name: CLOUDANT_URL
-          valueFrom:
-            secretKeyRef:
-              name: cloudant
-              key: url
-              optional: true
+        - name: sample-java-app
+          image: "replace"
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+              scheme: HTTP
+            timeoutSeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+              scheme: HTTP
+            timeoutSeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+          env:
+            - name: APP_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: APP_NAME
+                  name: sample-java-app
+            - name: CLOUDANT_URL
+              valueFrom:
+                secretKeyRef:
+                  name: cloudant
+                  key: url
+                  optional: true
