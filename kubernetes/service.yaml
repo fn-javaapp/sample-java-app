@@ -1,19 +1,22 @@
+---
+# Source: tp-sample-app/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "starter-kit.fullname" . }}
+  name: sample-java-app
+  namespace: dev
   labels:
-    app.kubernetes.io/name: {{ include "starter-kit.name" . }}
-    helm.sh/chart: {{ include "starter-kit.chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app: {{ .Release.Name }}
+    app.kubernetes.io/name: sample-java-app
+    helm.sh/chart: sample-java-app-1.0.0-rc0.0.10
+    app.kubernetes.io/instance: sample-java-app
+    app: sample-java-app
 spec:
-  type: {{ .Values.service.type }} #clusterip
+  type: ClusterIP #clusterip
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: {{ .Values.image.port }}
+    - port: 9080
+      targetPort: 8080
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/name: {{ include "starter-kit.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: sample-java-app
+    app.kubernetes.io/instance: sample-java-app
