@@ -20,7 +20,6 @@ spec:
         app.kubernetes.io/name: sample-java-app
         app.kubernetes.io/instance: sample-java-app
     spec:
-      serviceAccountName: sample-java-app
       volumes:
       containers:
         - name: sample-java-app
