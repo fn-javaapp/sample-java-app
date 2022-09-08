@@ -4,6 +4,9 @@ kind: Deployment
 metadata:
   name: sample-java-app
   labels:
+    app.kubernetes.io/name: sample-java-app
+    helm.sh/chart: sample-java-app-1.0.0-rc0.0.2
+    app.kubernetes.io/instance: sample-java-app
     app: sample-java-app
 spec:
   replicas: 1
