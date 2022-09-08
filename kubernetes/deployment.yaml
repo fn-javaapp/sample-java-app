@@ -49,11 +49,11 @@ spec:
             successThreshold: 1
             failureThreshold: 3
           env:
-            - name: APP_NAME
-              valueFrom:
-                configMapKeyRef:
-                  key: APP_NAME
-                  name: sample-java-app
+#             - name: APP_NAME
+#               valueFrom:
+#                 configMapKeyRef:
+#                   key: APP_NAME
+#                   name: sample-java-app
             - name: CLOUDANT_URL
               valueFrom:
                 secretKeyRef:
