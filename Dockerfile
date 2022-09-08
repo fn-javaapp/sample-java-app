@@ -18,7 +18,7 @@ RUN mvn package
 FROM tomcat:9.0-jre8-alpine
 COPY --from=maven_builder /tmp/target/GetStartedJava.war /usr/local/tomcat/webapps
 ENV LICENSE accept
-EXPOSE 9080
+EXPOSE 9080/tcp
 
 
 ## Running the container locally
