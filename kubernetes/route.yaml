@@ -1,17 +1,17 @@
----
-# Source: tp-sample-app/templates/route.yaml
+{{- if .Values.route.enabled -}}
+{{- $fullName := include "starter-kit.fullname" . -}}
 kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
-  name:  sample-java-app
-  namespace: dev
+  name: {{ $fullName }}
   annotations:
     argocd.argoproj.io/sync-options: Validate=false
 spec:
   to:
     kind: Service
-    name:  sample-java-app
+    name: {{ $fullName }}
     weight: 100
   tls:
     termination: edge
   wildcardPolicy: None
+{{- end }}
