@@ -8,7 +8,7 @@
 
 #RUN apt-get update && apt-get install maven -y
 FROM maven:3.5.2-jdk-8-alpine as maven_builder
-USER devops
+#USER devops
 #WORKDIR /home/devops
 
 COPY pom.xml /tmp/
