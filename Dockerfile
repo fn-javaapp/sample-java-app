@@ -8,10 +8,10 @@
 
 #RUN apt-get update && apt-get install maven -y
 FROM maven:3.5.2-jdk-8-alpine as maven_builder
-USER devops
-COPY --chown=1001:0 devops devops
-WORKDIR /home/devops
-RUN chmod -R g=u devops
+# USER devops
+# COPY --chown=1001:0 devops devops
+# WORKDIR /home/devops
+# RUN chmod -R g=u devops
 
 COPY pom.xml /tmp/
 COPY src /tmp/src/
@@ -20,6 +20,7 @@ RUN mvn clean install
 RUN mvn package
 
 FROM tomcat:9.0-jre8-alpine
+USER root
 COPY --from=maven_builder /tmp/target/GetStartedJava.war /usr/local/tomcat/webapps
 ENV LICENSE accept
 EXPOSE 9080/tcp
