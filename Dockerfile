@@ -8,6 +8,8 @@
 
 #RUN apt-get update && apt-get install maven -y
 FROM maven:3.5.2-jdk-8-alpine as maven_builder
+USER devops
+#WORKDIR /home/devops
 
 COPY pom.xml /tmp/
 COPY src /tmp/src/
@@ -19,7 +21,6 @@ FROM tomcat:9.0-jre8-alpine
 COPY --from=maven_builder /tmp/target/GetStartedJava.war /usr/local/tomcat/webapps
 ENV LICENSE accept
 EXPOSE 9080/tcp
-USER 1001
 
 ## Running the container locally
 # mvn clean install
